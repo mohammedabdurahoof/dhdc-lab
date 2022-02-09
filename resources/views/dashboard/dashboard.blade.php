@@ -152,7 +152,9 @@
                                 </a>
                                 <div class="dropdown-menu dropdown-menu-end">
                                     <!-- item-->
-                                    <a href="{{ route('register') }}" class="dropdown-item">Add New</a>
+
+                                   <a href="#" data-bs-toggle="modal" data-bs-target="#standard-modal" class="dropdown-item">Add New</a>
+
                                     <!-- item-->
 
                                 </div>
@@ -375,7 +377,100 @@
         </div>
         <!-- end row-->
 
+        <div id="standard-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="standard-modalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title" id="standard-modalLabel">Modal Heading</h4>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-hidden="true"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form method="POST" action="{{ route('register') }}">
+                            @csrf
 
+                            <div class="mb-3">
+                                <label for="fullname" class="form-label">Full Name</label>
+                                <input id="name" type="text" class="form-control @error('name') is-invalid @enderror"
+                                    name="name" value="{{ old('name') }}" required autocomplete="name" autofocus>
+
+                                @error('name')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="example-select" class="form-label">User Type</label>
+                                <select class="form-select" name="type" id="example-select">
+                                    <option>SUPER ADMIN</option>
+                                    <option>ADMIN</option>
+                                    <option>USER</option>
+                                </select>
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="emailaddress" class="form-label">Email address</label>
+                                <input id="email" type="email" class="form-control @error('email') is-invalid @enderror"
+                                    name="email" value="{{ old('email') }}" required autocomplete="email">
+
+                                @error('email')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="password" class="form-label">Password</label>
+                                <div class="input-group input-group-merge">
+                                    <input id="password" type="password"
+                                        class="form-control @error('password') is-invalid @enderror" name="password"
+                                        required autocomplete="new-password">
+
+                                    @error('password')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
+                                    <div class="input-group-text" data-password="false">
+                                        <span class="password-eye"></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <label for="password" class="form-label">Password Conform</label>
+                                <div class="input-group input-group-merge">
+                                    <input id="password-confirm" type="password" class="form-control"
+                                        name="password_confirmation" required autocomplete="new-password">
+
+
+                                    <div class="input-group-text" data-password="false">
+                                        <span class="password-eye"></span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="mb-3">
+                                <div class="form-check">
+                                    <input type="checkbox" class="form-check-input" id="checkbox-signup">
+                                    <label class="form-check-label" for="checkbox-signup">I accept <a href="#"
+                                            class="text-muted">Terms and Conditions</a></label>
+                                </div>
+                            </div>
+
+                            <div class="mb-3 text-center">
+                            </div>
+
+                      
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-primary w-100" type="submit"> Sign Up </button>
+                    </form>
+                    </div>
+                </div><!-- /.modal-content -->
+            </div><!-- /.modal-dialog -->
+        </div><!-- /.modal -->
        
 
     </div>

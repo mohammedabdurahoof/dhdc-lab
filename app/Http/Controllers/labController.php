@@ -222,6 +222,11 @@ class labController extends Controller
         // dd($print);
     return view('dashboard/print', ['print' => $print]);
     }
+
+    public function addNewUser(){
+        // dd('ll');
+        return view('auth/register');
+    }
     
 
    

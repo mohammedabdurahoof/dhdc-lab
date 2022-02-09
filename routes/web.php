@@ -34,6 +34,8 @@ Route::get('/all',[labController::class, 'all'])->name('all');
 Route::get('/getStudent/{adno}',[labController::class, 'getStudent'])->name('getStudent');
 Route::get('/print',[labController::class, 'print'])->name('print');
 Route::post('/addprintcash',[labController::class, 'addprintcash'])->name('addprintcash');
+Route::get('/addNewUser',[labController::class, 'addNewUser'])->name('addNewUser');
+
 
 Route::post('export', [excelController::class, 'fileExport'])->name('export');
 Route::get('importExportView', 'excelController@importExportView');
