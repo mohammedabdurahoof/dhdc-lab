@@ -145,7 +145,7 @@
     </div> <!-- container -->
 
 <!-- Standard modal -->
-<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#standard-modal">Standard Modal</button>
+{{-- <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#standard-modal">Standard Modal</button> --}}
 <div id="standard-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="standard-modalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
