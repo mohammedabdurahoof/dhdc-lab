@@ -125,6 +125,7 @@ content --}}
                       <input type="hidden" value="{{ Auth::user()->name }}" name="leftedby">    
                       <button type="submit" class="btn btn-danger">Left</button>
                   </form>
+                  
                         
                     @endif
                   

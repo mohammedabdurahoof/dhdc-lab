@@ -144,7 +144,7 @@ class labController extends Controller
             ->where('lab_usages.status', 'ADMITTED')
             ->get();
 
-        return view('dashboard/verified', ['allList' => $allList]);
+        return view('dashboard/admitted', ['allList' => $allList]);
     }
 
     public function left()
