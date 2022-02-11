@@ -17,10 +17,10 @@
                             <i class="dripicons-search noti-icon"></i>
                         </a>
                         <div class="dropdown-menu dropdown-menu-animated dropdown-lg p-0">
-                            <form class="p-3">
+                            {{-- <form class="p-3">
                                 <input type="text" class="form-control" placeholder="Search ..."
                                     aria-label="Recipient's username">
-                            </form>
+                            </form> --}}
                         </div>
                     </li>
                     {{-- <li class="dropdown notification-list topbar-dropdown">
@@ -277,10 +277,11 @@
                     <i class="mdi mdi-menu"></i>
                 </button>
                 <div class="app-search dropdown d-none d-lg-block">
-                    <form>
+                    <form method="post" action="{{route('searchuser')}}">
+                        @csrf
                         <div class="input-group">
                             <input type="text" class="form-control dropdown-toggle" placeholder="Search..."
-                                id="top-search">
+                                id="top-search" name="search">
                             <span class="mdi mdi-magnify search-icon"></span>
                             <button class="input-group-text btn-primary" type="submit">Search</button>
                         </div>

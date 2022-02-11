@@ -27,16 +27,21 @@
                     <div class="card-body">
                         <div class="row mb-2">
                             <div class="col-sm-4">
-                                <a href=""data-bs-toggle="modal" data-bs-target="#standard-modal" class="btn btn-danger mb-2"><i
-                                        class="mdi mdi-plus-circle me-2"></i> Register New</a>
-                                        
+                                <a href="" data-bs-toggle="modal" data-bs-target="#standard-modal"
+                                    class="btn btn-danger mb-2"><i class="mdi mdi-plus-circle me-2"></i> Register New</a>
+
                             </div>
                             <div class="col-sm-8">
-                                <div class="text-sm-end">
+                                <div class="text-sm-end" style="display: flex;
+                                justify-content: flex-end;">
                                     <button type="button" class="btn btn-success mb-2 me-1"><i
                                             class="mdi mdi-cog-outline"></i></button>
                                     <button type="button" class="btn btn-light mb-2 me-1">Import</button>
-                                    <button type="button" class="btn btn-light mb-2">Export</button>
+                                    <form action="{{ route('exportLabData') }}" method="post">
+                                        @csrf
+                                        <button type="submit" class="btn btn-light mb-2">Export</button>
+
+                                    </form>
                                 </div>
                             </div><!-- end col-->
                         </div>
@@ -107,14 +112,13 @@
                                             <td>
                                                 @if ($list->status === 'REGISTERED')
 
-                                                <span class="badge badge-primary-lighten">REGISTERED</span>
+                                                    <span class="badge badge-primary-lighten">REGISTERED</span>
 
                                                 @elseif($list->status === 'ADMITTED')
-                                                <span class="badge badge-success-lighten">ADMITTTED</span>
+                                                    <span class="badge badge-success-lighten">ADMITTTED</span>
 
-                                                 @else  
-                                                  <span class="badge badge-danger-lighten">LEFT</span>
-
+                                                @else
+                                                    <span class="badge badge-danger-lighten">LEFT</span>
                                                 @endif
 
 
@@ -144,36 +148,39 @@
 
 
     <!-- Standard modal -->
-<div id="standard-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="standard-modalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h4 class="modal-title" id="standard-modalLabel">Register New</h4>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-hidden="true"></button>
-            </div>
-            <div class="modal-body">
-                <form method="POST" action="{{ route('addNew') }}" id="addForm">
-                    @csrf
-                    {{-- <div class="mb-3">
+    <div id="standard-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="standard-modalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="standard-modalLabel">Register New</h4>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-hidden="true"></button>
+                </div>
+                <div class="modal-body">
+                    <form method="POST" action="{{ route('addNew') }}" id="addForm">
+                        @csrf
+                        {{-- <div class="mb-3">
                         <label for="simpleinput" class="form-label">Name:</label>
                         <input type="text" id="name" name="name" class="form-control">
                     </div> --}}
-                    <div class="mb-3">
-                        <label for="example-number" class="form-label">Ad No:</label>
-                        <input class="form-control" name="adno" id="adno" type="number" onfocusout="getDetiles()" name="number">
-                        <input type="hidden" value="{{ Auth::user()->name }}" name="registeredby">
-                        <input type="hidden" value="NULL" name="admittedby">
-                        <input type="hidden" value="NULL" name="leftedby">
-                    </div>
-                    <div class="mb-3">
-                        <label for="example-readonly" class="form-label">Name</label>
-                        <input type="text" id="name" class="form-control" readonly="" value="Name">
-                    </div>
-                    <div class="mb-3">
-                        <label for="example-readonly" class="form-label">Class</label>
-                        <input type="text" id="class" class="form-control" readonly="" value="Class">
-                    </div>
-                    {{-- <div class="mb-3">
+                        <div class="mb-3">
+                            <label for="example-number" class="form-label">Ad No:</label>
+                            <input class="form-control" name="adno" id="adno" type="number" onfocusout="getDetiles()"
+                                name="number">
+                            <input type="hidden" value="{{ Auth::user()->name }}" name="registeredby">
+                            <input type="hidden" value="NULL" name="admittedby">
+                            <input type="hidden" value="NULL" name="leftedby">
+                            <input type="hidden" value="0" name="netamount">
+                        </div>
+                        <div class="mb-3">
+                            <label for="example-readonly" class="form-label">Name</label>
+                            <input type="text" id="name" class="form-control" readonly="" value="Name">
+                        </div>
+                        <div class="mb-3">
+                            <label for="example-readonly" class="form-label">Class</label>
+                            <input type="text" id="class" class="form-control" readonly="" value="Class">
+                        </div>
+                        {{-- <div class="mb-3">
                         <label for="example-disable" class="form-label">Name</label>
                         <input type="text" class="form-control" id="name" disabled="" value="Name">
                     </div>
@@ -181,7 +188,7 @@
                         <label for="example-disable" class="form-label">Class</label>
                         <input type="text" class="form-control" id="class" disabled="" value="Class">
                     </div> --}}
-                    {{-- <div class="mb-3">
+                        {{-- <div class="mb-3">
                         <label for="example-number" class="form-label">Name</label>
                         <input class="form-control" value="" name="name" id="name" type="number" name="number">
                     </div>
@@ -190,43 +197,43 @@
                         <input class="form-control" value="" name="Class" id="Class" type="number" name="number">
                     </div> --}}
 
-                    <div class="mb-3">
-                        <label for="example-select" class="form-label">Time:</label>
-                        <select class="form-select" name="time" id="class">
-                            <option value="" disabled>select</option>
-                            <option value="30">30mnt</option>
-                            <option value="45">45mnt</option>
-                            <option value="60">1hr</option>
-                            <option value="120">2hr</option>
-                        </select>
-                    </div>
-                    <div class="mb-3">
-                        <label for="example-select" class="form-label">Internet?:</label>
-                        <select class="form-select" name="internet" id="class">
-                            <option value="" disabled>select</option>
-                            <option value="No">No</option>
-                            <option value="Yes">Yes</option>
-                        </select>
-                    </div>
-                    {{-- <script>
+                        <div class="mb-3">
+                            <label for="example-select" class="form-label">Time:</label>
+                            <select class="form-select" name="time" id="class">
+                                <option value="" disabled>select</option>
+                                <option value="30">30mnt</option>
+                                <option value="45">45mnt</option>
+                                <option value="60">1hr</option>
+                                <option value="120">2hr</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label for="example-select" class="form-label">Internet?:</label>
+                            <select class="form-select" name="internet" id="class">
+                                <option value="" disabled>select</option>
+                                <option value="No">No</option>
+                                <option value="Yes">Yes</option>
+                            </select>
+                        </div>
+                        {{-- <script>
                         document.getElementById("admitTime").value=newDate();
                     </script> --}}
-                    <input type="hidden" value="REGISTERED" name="status">
-                    <input type="hidden" value="<?php echo date('Y-m-d\TH:i:s'); ?>" name="registertime">
-                    <input type="hidden" value="NULL" name="admittime">
-                    <input type="hidden" value="NULL" name="lefttime">
+                        <input type="hidden" value="REGISTERED" name="status">
+                        <input type="hidden" value="<?php echo date('Y-m-d'); ?>" name="registertime">
+                        <input type="hidden" value="NULL" name="admittime">
+                        <input type="hidden" value="NULL" name="lefttime">
 
 
-               
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-light" data-bs-dismiss="modal">Close</button>
-                <button type="submit"  class="btn btn-primary">Save</button>
-            </form>
-            </div>
-        </div><!-- /.modal-content -->
-    </div><!-- /.modal-dialog -->
-</div><!-- /.modal -->
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-light" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Save</button>
+                    </form>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
 
 
 

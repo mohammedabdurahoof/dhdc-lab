@@ -94,7 +94,7 @@ content --}}
                 </td>
                 <td>
                   
-                    {{$list->id}}
+                    {{$list->class}}
                 </td>
                 <td>
                     {{$list->time}}

@@ -20,6 +20,7 @@ Route::get('/',function(){
     return redirect('/login');
 });
 
+
 Route::get('/dashboard',[labController::class, 'dashboard'])->name('dashboard');
 Route::get('/students',[labController::class, 'students'])->name('students');
 Route::get('/reg',[labController::class, 'reg'])->name('reg');
@@ -32,12 +33,18 @@ Route::get('/verified',[labController::class, 'verified'])->name('verified');
 Route::get('/left',[labController::class, 'left'])->name('left');
 Route::get('/all',[labController::class, 'all'])->name('all');
 Route::get('/getStudent/{adno}',[labController::class, 'getStudent'])->name('getStudent');
+Route::get('/viewStudent',[labController::class, 'viewStudent'])->name('viewStudent');
 Route::get('/print',[labController::class, 'print'])->name('print');
+Route::get('/netcash',[labController::class, 'netcash'])->name('netcash');
 Route::post('/addprintcash',[labController::class, 'addprintcash'])->name('addprintcash');
-Route::get('/addNewUser',[labController::class, 'addNewUser'])->name('addNewUser');
+// Route::post('/searchuser',[labController::class, 'searchuser'])->name('searchuser');
+Route::post('/searchuser',[labController::class, 'searchuser'])->name('searchuser');
+Route::post('/addNetcash',[labController::class, 'addNetcash'])->name('addNetcash');
 
 
 Route::post('export', [excelController::class, 'fileExport'])->name('export');
+Route::post('exportLabData', [excelController::class, 'exportLabData'])->name('exportLabData');
+Route::post('exportPrint', [excelController::class, 'exportPrint'])->name('exportPrint');
 Route::get('importExportView', 'excelController@importExportView');
 Route::post('import', [excelController::class, 'fileImport'])->name('import');
 

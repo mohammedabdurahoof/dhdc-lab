@@ -32,11 +32,18 @@
 
                             </div>
                             <div class="col-sm-8">
-                                <div class="text-sm-end">
+                                <div class="text-sm-end" style="display: flex;
+                                justify-content: flex-end;">
                                     <button type="button" class="btn btn-success mb-2 me-1"><i
                                             class="mdi mdi-cog-outline"></i></button>
-                                    <button type="button" class="btn btn-light mb-2 me-1">Import</button>
-                                    <button type="button" class="btn btn-light mb-2">Export</button>
+                                            <a href="javascript:window.print()" class="btn btn-light mb-2"><i class="mdi mdi-printer"></i> Print</a>
+
+
+                                    <form action="{{ route('exportPrint') }}" method="post">
+                                        @csrf
+                                        <button type="submit" class="btn btn-light mb-2">Export</button>
+
+                                    </form>
                                 </div>
                             </div>
                         </div> 

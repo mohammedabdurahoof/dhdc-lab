@@ -94,7 +94,7 @@ content --}}
                 </td>
                 <td>
                   
-                    {{$list->id}}
+                    {{$list->class}}
                 </td>
                 <td>
                     {{$list->time}}
@@ -104,7 +104,7 @@ content --}}
                     {{$list->internet}}
                 </td>
                 <td>
-                    USTHAD
+                    {{$list->admittedby}}
                 </td>
                 <td>
                     @if ($list->status==='REGISTERED')
@@ -113,7 +113,7 @@ content --}}
                       @csrf
                       <input type="hidden" value="LEFT" name="status" id="">
                       <input type="hidden" value="{{ Auth::user()->name }}" name="admittedby">    
-                     <input type="hidden"  value="<?php echo date('Y-m-d\TH:i:s'); ?>" name="admittime">
+                      <input type="hidden"  value="<?php echo date('Y-m-d\TH:i:s'); ?>" name="admittime">
                       <button type="submit" class="btn btn-success">Admit</button>
   
                   </form>
@@ -122,7 +122,8 @@ content --}}
                   <form method="POST" action="{{route('makeLeft',$list->id)}}" id="addForm">
                       @csrf
                       <input type="hidden" value="LEFT" name="status" id="">
-                      <input type="hidden" value="{{ Auth::user()->name }}" name="leftedby">    
+                      <input type="hidden" value="{{ Auth::user()->name }}" name="leftedby">
+                      <input type="hidden"  value="<?php echo date('Y-m-d\TH:i:s'); ?>" name="lefttime">    
                       <button type="submit" class="btn btn-danger">Left</button>
                   </form>
                   

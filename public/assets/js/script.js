@@ -44,6 +44,12 @@ function getDetiles(){
     });
 }
 
+function search(){
+    value = $("#top-search").val
+    console.log(value);
+    location.href('/')
+}
+
 
 // stationery
 

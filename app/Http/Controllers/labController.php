@@ -4,17 +4,14 @@ namespace App\Http\Controllers;
 
 use App\Models\students;
 use App\Models\labUsage;
+use App\Models\net;
 use App\Models\User;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
-use Maatwebsite\Excel\Facades\Excel;
-use App\Imports\UsersImport;
-use App\Exports\UsersExport;
 use App\Models\printcash;
-use Illuminate\Support\Facades\Redirect;
 
 class labController extends Controller
 {
@@ -57,6 +54,7 @@ class labController extends Controller
                 'adno' =>  'required|max:3|min:3',
                 'time' => 'required',
                 'internet' => 'required',
+                'netamount' => 'required',
                 'status' => 'required',
                 'registeredby' => 'required',
                 'admittedby' => 'required',
@@ -92,6 +90,7 @@ class labController extends Controller
         $allList = DB::table('students')
             // ->join('students','students.adno','lab_usages.adno')
             ->join('lab_usages', 'lab_usages.adno', 'students.adno')
+            ->where('lab_usages.registertime', date("Y-m-d"))
             ->get();
 
         return view('dashboard/register', ['allList' => $allList]);
@@ -103,6 +102,7 @@ class labController extends Controller
             // ->join('students','students.adno','lab_usages.adno')
             ->join('lab_usages', 'lab_usages.adno', 'students.adno')
             ->where('lab_usages.status', 'REGISTERED')
+            ->where('lab_usages.registertime', date("Y-m-d"))
             ->get();
 
         return view('dashboard/verify', ['allList' => $allList]);
@@ -125,13 +125,51 @@ class labController extends Controller
     public function makeLeft(Request $request, labUsage $id)
     {
         // dd($request->post('status'));
-        $data = labUsage::where('adno', $request->post('adno'));;
-        $validator = $request->validate([
-            'status' => 'required',
+        $adno=$id;
+       
+        $admittime=$id->admittime;
+        $lefttime=$request->post('lefttime');
 
-        ]);
+        // dd($lefttime);
+        // $admittime=$request->post('admittime');
+        // $lefttime=$request->post('lefttime');
+        // $data = labUsage::where('adno', $request->post('adno'));;
+        $net = \Carbon\Carbon::parse($admittime)->diff($lefttime)->format('%H');
+        // dd($net);
+       
+        // dd($net);
+
+        // dd($net);
+        // $validator = $request->validate([
+        //     'status' => 'required',
+        //     'lefttime' => 'required',
+        //     'leftedby' => 'required',
+        //     'netamount' => 'required',
+        // ]);
         //  dd($validator);
-        $id->update($validator);
+        if($net>15){
+            $netamount=0;
+        }else{
+            $netamount=0;
+        }
+        // dd($lefttime);
+        if(!$netamount){
+            labUsage::create([
+                'netamount'=>$netamount,
+             ]);
+             $id->update([
+                'status'=>$request->post('status'),
+                'lefttime'=>$request->post('lefttime'),
+                'leftedby'=>$request->post('leftedby'),
+             ]);
+        }else
+        
+        $id->update([
+            'status'=>$request->post('status'),
+            'lefttime'=>$request->post('lefttime'),
+            'leftedby'=>$request->post('leftedby'),
+            'netamount'=>$netamount,
+         ]);
         return back();
     }
 
@@ -142,6 +180,7 @@ class labController extends Controller
             // ->join('students','students.adno','lab_usages.adno')
             ->join('lab_usages', 'lab_usages.adno', 'students.adno')
             ->where('lab_usages.status', 'ADMITTED')
+            ->where('lab_usages.registertime', date("Y-m-d"))
             ->get();
 
         return view('dashboard/admitted', ['allList' => $allList]);
@@ -153,16 +192,20 @@ class labController extends Controller
             // ->join('students','students.adno','lab_usages.adno')
             ->join('lab_usages', 'lab_usages.adno', 'students.adno')
             ->where('lab_usages.status', 'LEFT')
+            ->where('lab_usages.registertime', date("Y-m-d"))
             ->get();
 
         return view('dashboard/left', ['allList' => $allList]);
     }
     public function all()
     {
+        // $today=date("Y-m-d");
+        // dd($today);
 
         $allList = DB::table('students')
             // ->join('students','students.adno','lab_usages.adno')
             ->join('lab_usages', 'lab_usages.adno', 'students.adno')
+            ->where('lab_usages.registertime', date("Y-m-d"))
             ->get();
 
         return view('dashboard/all', ['allList' => $allList]);
@@ -173,6 +216,16 @@ class labController extends Controller
         $student = students::where('adno', $adno )->get();
         // dd($student);
         return $student;
+    }
+
+    public function viewStudent(Request $request)
+    {
+        $adno=$request->input('adno');
+        $student = students::where('adno', $adno )->get();
+        $print = printcash::where('adno', $adno )->get();
+        $labUsage=labUsage::where('adno', $adno )->get();
+        // dd($adno);
+        return view('dashboard/profile',['student'=> $student, 'printcash'=>$print ,'labUsage'=>$labUsage]);
     }
 
     public function addprintcash(Request $request){
@@ -223,11 +276,45 @@ class labController extends Controller
     return view('dashboard/print', ['print' => $print]);
     }
 
-    public function addNewUser(){
-        // dd('ll');
-        return view('auth/register');
+    public function searchuser(Request $request)
+    {
+        
+        $adno=$request->input('search');
+        $student = students::where('adno', $adno )->get();
+        $print = printcash::where('adno', $adno )->get();
+        $labUsage=labUsage::where('adno', $adno )->get();
+        
+       
+        $net = \Carbon\Carbon::parse($labUsage[1]->admittime)->diff($labUsage[0]->lefttime)->format('%H:%I');
+        dd($net);
+       
+            return view('dashboard/profile',['student'=> $student, 'printcash'=>$print,'labUsage'=>$labUsage]);
+      
+            // dd($request->post('search'));
+            // return back();
+        
     }
+
+    public function addNetcash(){
+        $labUsage=labUsage::all();
+        $listCount=labUsage::count();
+
+        // dd($labUsage);
+        // dd( $labUsage);
+       
+     $net = \Carbon\Carbon::parse($labUsage->admittime)->diff($labUsage->lefttime)->format('%H:%I');
+     dd($net);
     
+       
+        
+    
+    return view('dashboard/net',['labusage' => $labUsage]);
+    }
+    public function netcash(){
+        $labUsage=labUsage::all();
+        $print="null";
+    return view('dashboard/net', ['labusage' => $labUsage]);
+    }
 
    
 }

@@ -39,7 +39,7 @@ class RegisterController extends Controller
      */
     public function __construct()
     {
-       $this->middleware('auth');
+       $this->middleware('guest');
     }
 
     /**
@@ -68,8 +68,8 @@ class RegisterController extends Controller
     {
 
         // dd($data);
-        $user = Auth::user()->type;
-        if ($user === 'SUPER ADMIN') {
+        // $user = Auth::user()->type;
+        // if ($user === 'SUPER ADMIN') {
 
         return User::create([
             'name' => $data['name'],
@@ -77,8 +77,8 @@ class RegisterController extends Controller
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
         ]);
-    }else{
+    // }else{
         return redirect('/login');
-    }
+    // }
 }
 }

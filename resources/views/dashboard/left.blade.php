@@ -104,7 +104,7 @@ content --}}
                     {{$list->internet}}
                 </td>
                 <td>
-                    USTHAD
+                    {{$list->leftedby}}
                 </td>
                 <td>
                    

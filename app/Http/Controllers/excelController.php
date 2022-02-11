@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\labExport;
+use App\Exports\printExport;
 use App\Exports\studentsExport;
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
@@ -32,5 +34,17 @@ class excelController extends Controller
     public function fileExport() 
     {
         return Excel::download(new studentsExport, 'users-collection.xlsx');
-    }    
+    }
+    
+    public function exportLabData()
+    {
+        return Excel::download(new labExport, 'lab-usage.xlsx');
+    }
+
+    public function exportPrint()
+    {
+        return Excel::download(new printExport, 'print-cash.xlsx');
+    }
+
+    
 }

@@ -84,7 +84,7 @@
                                                 <img src="assets/img/{{ $student->adno }}.jpg" title="contact-img"
                                                     class="me-2 rounded-circle" height="48">
                                                 <p class="m-0 d-inline-block align-middle font-16">
-                                                    <a href="" class="text-body"> {{ $student->name }}</a>
+                                                    <a href="/viewStudent?adno={{ $student->adno }}" class="text-body"> {{ $student->name }}</a>
                                                     <br>
                                                     {{-- <span class="text-warning mdi mdi-star"></span>
                                                     <span class="text-warning mdi mdi-star"></span>
