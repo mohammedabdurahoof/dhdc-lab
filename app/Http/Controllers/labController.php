@@ -54,6 +54,7 @@ class labController extends Controller
             $validator = $request->validate([
                 'adno' =>  'required|max:3|min:3',
                 'time' => 'required',
+                'system' => 'required',
                 'internet' => 'required',
                 'netamount' => 'required',
                 'status' => 'required',
@@ -275,12 +276,14 @@ class labController extends Controller
         $student = students::where('adno', $adno )->get();
         $print = printcash::where('adno', $adno )->get();
         $labUsage=labUsage::where('adno', $adno )->get();
-        
+        $totalnet = 0;
+        foreach ($labUsage as $user) {
+            $totalnet += $user->netamount;
+        }
        
-        $net = \Carbon\Carbon::parse($labUsage[1]->admittime)->diff($labUsage[0]->lefttime)->format('%H:%I');
-        dd($net);
+    
        
-            return view('dashboard/profile',['student'=> $student, 'printcash'=>$print,'labUsage'=>$labUsage]);
+            return view('dashboard/profile',['student'=> $student, 'printcash'=>$print,'labUsage'=>$labUsage, 'totalnet' => $totalnet ]);
       
             // dd($request->post('search'));
             // return back();

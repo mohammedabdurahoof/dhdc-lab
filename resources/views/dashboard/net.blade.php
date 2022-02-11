@@ -25,20 +25,28 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-body">
-                        {{-- <div class="row mb-2">
+                       <div class="row mb-2">
                             <div class="col-sm-4">
-                                <a href="javascript:void(0);" onclick="openAddForm()" class="btn btn-danger mb-2"><i
-                                        class="mdi mdi-plus-circle me-2"></i> Register New</a>
+                                <a href="javascript:void(0);" data-bs-toggle="modal" data-bs-target="#standard-modal" class="btn btn-danger mb-2"><i
+                                        class="mdi mdi-plus-circle me-2"></i> Add New</a>
+
                             </div>
                             <div class="col-sm-8">
-                                <div class="text-sm-end">
+                                <div class="text-sm-end" style="display: flex;
+                                justify-content: flex-end;">
                                     <button type="button" class="btn btn-success mb-2 me-1"><i
                                             class="mdi mdi-cog-outline"></i></button>
-                                    <button type="button" class="btn btn-light mb-2 me-1">Import</button>
-                                    <button type="button" class="btn btn-light mb-2">Export</button>
+                                            <a href="javascript:window.print()" class="btn btn-light mb-2"><i class="mdi mdi-printer"></i> Print</a>
+
+
+                                    <form action="{{ route('exportPrint') }}" method="post">
+                                        @csrf
+                                        <button type="submit" class="btn btn-light mb-2">Export</button>
+
+                                    </form>
                                 </div>
                             </div>
-                        </div> --}}
+                        </div> 
 
                         <div class="table-responsive">
                            
@@ -57,15 +65,15 @@ content --}}
         </th>
         <th class="all">NAME</th>
         <th>AD.NO</th>
-        <th>SYSTEM</th>
-        <th>TIME</th>
-        <th>INTERNET ?</th>
-        <th>PERMITTED BY</th>
-        <th style="width: 85px;">VERIFY</th>
+        <th>NAME</th>
+        <th>CLASS</th>
+        <th>AMOUNT</th>
+        <th>DATE</th>
+        <th style="width: 85px;">Updated by</th>
     </tr>
 </thead>
 <tbody>
-    @foreach ($allList as $list)
+    @foreach ($print as $printcash)
         <tr>
             <td>
                 <div class="form-check">
@@ -74,11 +82,11 @@ content --}}
                 </div>
             </td>
             <td>
-                <img src="assets/img/{{$list->adno}}.jpg" 
-                                                    title="contact-img" class="me-2 rounded-circle" height="48" width="48">
+                {{-- <img src="assets/img/.jpg" 
+                                                    title="contact-img" class="me-2 rounded-circle" height="48" width="48"> --}}
                 <p class="m-0 d-inline-block align-middle font-16">
                     <a href=""
-                        class="text-body">{{$list->name}}</a>
+                        class="text-body">{{ $loop->iteration }}</a>
                     <br>
                     {{-- <span class="text-warning mdi mdi-star"></span>
                     <span class="text-warning mdi mdi-star"></span>
@@ -88,47 +96,25 @@ content --}}
                 </p>
             </td>
             <td>
-                {{$list->adno}}
+                {{$printcash->adno}}
 
             </td>
             <td>
-              
-                {{$list->system}}
+                {{$printcash->name}}
+               
             </td>
             <td>
-                {{$list->time}}
+                {{$printcash->class}}
             </td>
 
             <td>
-                {{$list->internet}}
+                {{$printcash->amount}}
             </td>
             <td>
-                {{$list->registeredby}}
+                {{$printcash->created_at}}
             </td>
             <td>
-                @if ($list->status==='REGISTERED')
-
-              <form method="POST" action="{{route('makeVerify',$list->id)}}" id="addForm">
-                  @csrf
-                  <input type="hidden" value="ADMITTED" name="status" id="">
-                  <input type="hidden" value="{{ Auth::user()->name }}" name="admittedby">    
-                 <input type="hidden"  value="<?php echo date('Y-m-d\TH:i:s'); ?>" name="admittime">
-                  <button type="submit" class="btn btn-success">Admit</button>
-
-              </form>
-                  
-              @elseif($list->status==='ADMITTED')
-              <form method="POST" action="{{route('makeLeft',$list->id)}}" id="addForm">
-                @csrf
-                <input type="hidden" value="LEFT" name="status" id="">
-                <input type="hidden" value="{{ Auth::user()->name }}" name="leftedby">
-                <input type="hidden"  value="<?php echo date('Y-m-d\TH:i:s'); ?>" name="lefttime">    
-                <button type="submit" class="btn btn-danger">Leave</button>
-            </form>
-                    @else
-                    <span class="badge badge-danger-lighten">Left</span>
-                @endif
-              
+                {{$printcash->addedby}}
 
           </td>
 
@@ -154,20 +140,16 @@ content --}}
 
     </div> <!-- container -->
 
-
-    <div id="openAddForm" hidden>
-        <span class="helper"></span>
-        <div>
-            <div class="rightbar-title title">
-                <h5 class="m-0">Register New</h5>
-                <a href="javascript:void(0);" class="end-bar-toggle float-end">
-                    <i class="dripicons-cross noti-icon close-icon" onclick="closeForm()"></i>
-                </a>
-
+<!-- Standard modal -->
+<div id="standard-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="standard-modalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="standard-modalLabel">Add New</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-hidden="true"></button>
             </div>
-
-            <div class="student_adding_form">
-                <form method="POST" action="{{ route('addNew') }}" id="addForm">
+            <div class="modal-body">
+                <form method="POST" action="{{ route('addprintcash') }}" id="addForm">
                     @csrf
                     {{-- <div class="mb-3">
                         <label for="simpleinput" class="form-label">Name:</label>
@@ -175,7 +157,7 @@ content --}}
                     </div> --}}
                     <div class="mb-3">
                         <label for="example-number" class="form-label">Ad No:</label>
-                        <input class="form-control" name="adno" id="adno" type="number" name="number">
+                        <input class="form-control" name="adno" id="adno" type="number" placeholder="Ad.No">
                     </div>
                     {{-- <div class="mb-3">
                         <label for="example-number" class="form-label">Name</label>
@@ -185,38 +167,44 @@ content --}}
                         <label for="example-number" class="form-label">Class</label>
                         <input class="form-control" value="" name="Class" id="Class" type="number" name="number">
                     </div> --}}
-                   
                     <div class="mb-3">
-                        <label for="example-select" class="form-label">Time:</label>
-                        <select class="form-select" name="time" id="class">
-                            <option value="" disabled>select</option>
-                            <option value="30mnt">30mnt</option>
-                            <option value="45mnt">45mnt</option>
-                            <option value="2hr">2hr</option>
-                        </select>
+                        <label for="example-number" class="form-label">Amount:</label>
+                        <input class="form-control" name="amount" id="adno" type="number" placeholder="₹
+                        ">
                     </div>
-                    <div class="mb-3">
-                        <label for="example-select" class="form-label">Internet?:</label>
-                        <select class="form-select" name="internet" id="class">
-                            <option value="" disabled>select</option>
-                            <option value="No">No</option>
-                            <option value="Yes">Yes</option>
-                        </select>
-                    </div>
+                    
                     {{-- <script>
                         document.getElementById("admitTime").value=newDate();
                     </script> --}}
-                    <input type="hidden" value="REGISTERED" name="status">
-                    <input type="hidden"  value="<?php echo date('Y-m-d\TH:i:s'); ?>" name="registertime">
-                    <input type="hidden"  value="NULL" name="admittime">
-                    <input type="hidden"  value="NULL" name="lefttime">
+                    <input type="hidden"  value="{{ Auth::user()->name }}" name="addedby">
 
                     
-                    <button type="submit" class="btn btn-primary w-100">Submit</button>
-                </form>
+               
             </div>
-        </div>
-    </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-light" data-bs-dismiss="modal">Close</button>
+                <button type="sumbit" class="btn btn-primary">Save </button>
+            </form>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+<!-- Large modal -->
+<div class="modal fade" id="bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="myLargeModalLabel">Large modal</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-hidden="true"></button>
+            </div>
+            <div class="modal-body">
+                
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
 
 
 

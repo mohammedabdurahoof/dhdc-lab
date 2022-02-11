@@ -1,175 +1,215 @@
 @extends('dashboard/partials/top-bar')
 
 @section('contant')
-<div class="container-fluid">
+    <div class="container-fluid">
 
-    <!-- start page title -->
-    <div class="row">
-        <div class="col-12">
-            <div class="page-title-box">
-                {{-- <div class="page-title-right">
+        <!-- start page title -->
+        <div class="row">
+            <div class="col-12">
+                <div class="page-title-box">
+                    {{-- <div class="page-title-right">
                     <ol class="breadcrumb m-0">
                         <li class="breadcrumb-item"><a href="javascript: void(0);">Hyper</a></li>
                         <li class="breadcrumb-item"><a href="javascript: void(0);">Pages</a></li>
                         <li class="breadcrumb-item active">Profile 2</li>
                     </ol>
                 </div> --}}
-                <h4 class="page-title">Profile</h4>
+                    <h4 class="page-title">Profile</h4>
+                </div>
             </div>
         </div>
-    </div>     
-    <!-- end page title --> 
+        <!-- end page title -->
 
-    <div class="row">
-        <div class="col-xl-4 col-lg-5">
-            <div class="card text-center">
-                <div class="card-body">
-                    <img src="assets/img/{{$student[0]->adno}}.jpg" class="rounded-circle avatar-lg img-thumbnail" alt="profile-image">
+        <div class="row">
+            <div class="col-xl-4 col-lg-5">
+                <div class="card text-center">
+                    <div class="card-body">
+                        <img src="assets/img/{{ $student[0]->adno }}.jpg" class="rounded-circle avatar-lg img-thumbnail prof-img"
+                            alt="profile-image">
 
-                    <h4 class="mb-0 mt-2">{{$student[0]->name}}</h4>
-                    <p class="text-muted font-14">Class: {{$student[0]->class}}</p>
+                        <h4 class="mb-0 mt-2">{{ $student[0]->name }}</h4>
+                        <p class="text-muted font-14">Class: {{ $student[0]->class }}</p>
 
-                    <button type="button" class="btn btn-success btn-sm mb-2">Follow</button>
-                    <button type="button" class="btn btn-danger btn-sm mb-2">Message</button>
+                        <button type="button" class="btn btn-success btn-sm mb-2">Follow</button>
+                        <button type="button" class="btn btn-danger btn-sm mb-2">Message</button>
 
-                    <div class="text-start mt-3">
-                        {{-- <h4 class="font-13 text-uppercase">About Me :</h4>
+                        <div class="text-start mt-3">
+                            {{-- <h4 class="font-13 text-uppercase">About Me :</h4>
                         <p class="text-muted font-13 mb-3">
                             Hi I'm Johnathn Deo,has been the industry's standard dummy text ever since the
                             1500s, when an unknown printer took a galley of type.
                         </p> --}}
-                        <p class="text-muted mb-2 font-13"><strong>Full Name :</strong> <span class="ms-2">{{$student[0]->name}}</span></p>
+                            <p class="text-muted mb-2 font-13"><strong>Full Name :</strong> <span
+                                    class="ms-2">{{ $student[0]->name }}</span></p>
 
-                        <p class="text-muted mb-2 font-13"><strong>Mobile :</strong><span class="ms-2">9747372112</span></p>
+                            <p class="text-muted mb-2 font-13"><strong>Mobile :</strong><span
+                                    class="ms-2">9747372112</span></p>
 
-                        <p class="text-muted mb-2 font-13"><strong>Email :</strong> <span class="ms-2 ">user@email.com</span></p>
+                            <p class="text-muted mb-2 font-13"><strong>Email :</strong> <span
+                                    class="ms-2 ">user@email.com</span></p>
 
-                        <p class="text-muted mb-1 font-13"><strong>Location :</strong> <span class="ms-2">INDIA</span></p>
-                    </div>
-
-                    <ul class="social-list list-inline mt-3 mb-0">
-                        <li class="list-inline-item">
-                            <a href="javascript: void(0);" class="social-list-item border-primary text-primary"><i class="mdi mdi-facebook"></i></a>
-                        </li>
-                        <li class="list-inline-item">
-                            <a href="javascript: void(0);" class="social-list-item border-danger text-danger"><i class="mdi mdi-google"></i></a>
-                        </li>
-                        <li class="list-inline-item">
-                            <a href="javascript: void(0);" class="social-list-item border-info text-info"><i class="mdi mdi-twitter"></i></a>
-                        </li>
-                        <li class="list-inline-item">
-                            <a href="javascript: void(0);" class="social-list-item border-secondary text-secondary"><i class="mdi mdi-github"></i></a>
-                        </li>
-                    </ul>
-                </div> <!-- end card-body -->
-            </div> <!-- end card -->
-
-            <!-- Messages-->
-            
-
-        </div> <!-- end col-->
-
-        <div class="col-xl-8 col-lg-7">
-            <div class="card">
-                <div class="card-body">
-                    <ul class="nav nav-pills bg-nav-pills nav-justified mb-3">
-                        <li class="nav-item">
-                            <a href="#aboutme" data-bs-toggle="tab" aria-expanded="false" class="nav-link rounded-0">
-                                Print
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="#timeline" data-bs-toggle="tab" aria-expanded="true" class="nav-link rounded-0 active">
-                                Usage
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="#settings" data-bs-toggle="tab" aria-expanded="false" class="nav-link rounded-0">
-                                Settings
-                            </a>
-                        </li>
-                    </ul>
-                    <div class="tab-content">
-                        <div class="tab-pane" id="aboutme">
-
-                            
-
-                                <div class="col-sm-4">
-                                    <div class="card tilebox-one">
-                                        <div class="card-body">
-                                            <i class="dripicons-basket float-end text-muted"></i>
-                                            <h6 class="text-muted text-uppercase mt-0">Print Cash</h6>
-                                           @if (count($printcash)>0)
-                                           <h2 class="m-b-20">₹{{$printcash[0]->amount}}/-</h2>
-                                           @else
-                                           <h2 class="m-b-20">₹0/-</h2>
-                                           @endif
-                                            
-                                            
-                                            
-                                            <span class="badge bg-primary"></span> <span class="text-muted">To  <script>document.write((new Date()).getFullYear() +" " );
-                                             document.write((new Date()).toLocaleString('default', { month: 'long' }));</script> period</span>
-                                        </div> <!-- end card-body-->
-                                    </div> <!--end card-->
-                                </div><!-- end col -->
-                            <!-- end timeline -->        
-
-                           
-                            
-
-                        </div> <!-- end tab-pane -->
-                        <!-- end about me section content -->
-
-                        <div class="tab-pane show active" id="timeline">
-
-                            <div class="card">
-                                <div class="card-body">
-                                    <h4 class="header-title mb-3">LAB USAGE</h4>
-
-                                    <div class="table-responsive">
-                                        <table class="table table-hover table-centered mb-0">
-                                            <thead>
-                                                <tr>
-                                                    <th>Date</th>
-                                                    <th>Status</th>
-                                                    <th>Internet</th>
-                                                    <th>Time</th>
-                                                    <th>Registered By</th>
-                                                    <th>Net Time</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                      @foreach ($labUsage as $labUsage)
-                                      <tr>
-                                        <td>{{$labUsage->created_at->format("d-M-Y")}}</td>
-                                        <td>{{$labUsage->status}}</td>
-                                        @if ($labUsage->internet==="Yes")
-
-                                        <td><span class="badge bg-success">{{$labUsage->internet}}</span></td>
-                                        @else
-                                            <td><span class="badge bg-danger">{{$labUsage->internet}}</span></td>
-
-                                    
-                                        @endif
-                                       
-                                        <td>{{$labUsage->time}}Minute</td>
-                                        <td>{{$labUsage->registeredby}}</td>
-                                        {{-- <td>{{\Carbon\Carbon::parse($labUsage->admittime)->diff($labUsage->lefttime)->format('%H:%I')}}</td> --}}
-                                    </tr>
-                                      @endforeach          
-                                                
-                                               
-                                            </tbody>
-                                        </table>
-                                    </div> <!-- end table responsive-->
-                                </div> <!-- end col-->
-                            </div> <!-- end row-->
-
+                            <p class="text-muted mb-1 font-13"><strong>Location :</strong> <span
+                                    class="ms-2">INDIA</span></p>
                         </div>
-                        <!-- end timeline content-->
 
-                        <div class="tab-pane" id="settings">
-                            {{-- <form>
+                        <ul class="social-list list-inline mt-3 mb-0">
+                            <li class="list-inline-item">
+                                <a href="javascript: void(0);" class="social-list-item border-primary text-primary"><i
+                                        class="mdi mdi-facebook"></i></a>
+                            </li>
+                            <li class="list-inline-item">
+                                <a href="javascript: void(0);" class="social-list-item border-danger text-danger"><i
+                                        class="mdi mdi-google"></i></a>
+                            </li>
+                            <li class="list-inline-item">
+                                <a href="javascript: void(0);" class="social-list-item border-info text-info"><i
+                                        class="mdi mdi-twitter"></i></a>
+                            </li>
+                            <li class="list-inline-item">
+                                <a href="javascript: void(0);" class="social-list-item border-secondary text-secondary"><i
+                                        class="mdi mdi-github"></i></a>
+                            </li>
+                        </ul>
+                    </div> <!-- end card-body -->
+                </div> <!-- end card -->
+
+                <!-- Messages-->
+
+
+            </div> <!-- end col-->
+
+            <div class="col-xl-8 col-lg-7">
+                <div class="card">
+                    <div class="card-body">
+                        <ul class="nav nav-pills bg-nav-pills nav-justified mb-3">
+                            <li class="nav-item">
+                                <a href="#aboutme" data-bs-toggle="tab" aria-expanded="false" class="nav-link rounded-0">
+                                    Cash To Pay
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="#timeline" data-bs-toggle="tab" aria-expanded="true"
+                                    class="nav-link rounded-0 active">
+                                    Usage
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="#settings" data-bs-toggle="tab" aria-expanded="false" class="nav-link rounded-0">
+                                    Settings
+                                </a>
+                            </li>
+                        </ul>
+                        <div class="tab-content">
+                            <div class="tab-pane" id="aboutme">
+
+
+                                <div class="row">
+                                    <div class="col-sm-4">
+                                        <div class="card tilebox-one">
+                                            <div class="card-body">
+                                                <i class=" dripicons-print float-end text-muted"></i>
+                                                <h6 class="text-muted text-uppercase mt-0">Print Cash</h6>
+                                                @if (count($printcash) > 0)
+                                                    <h2 class="m-b-20">₹{{ $printcash[0]->amount }}/-</h2>
+                                                @else
+                                                    <h2 class="m-b-20">₹0/-</h2>
+                                                @endif
+
+
+
+                                                <span class="badge bg-primary"></span> <span class="text-muted">To
+                                                    <script>
+                                                        document.write((new Date()).getFullYear() + " ");
+                                                        document.write((new Date()).toLocaleString('default', {
+                                                            month: 'long'
+                                                        }));
+                                                    </script> period</span>
+                                            </div> <!-- end card-body-->
+                                        </div>
+                                        <!--end card-->
+                                    </div><!-- end col -->
+                                    <div class="col-sm-4">
+                                        <div class="card tilebox-one">
+                                            <div class="card-body">
+                                                <i class=" dripicons-web float-end text-muted"></i>
+                                                <h6 class="text-muted text-uppercase mt-0">Net Cash</h6>
+                                                <h2 class="m-b-20">₹{{ $totalnet }}/-</h2>
+
+
+
+
+                                                <span class="badge bg-primary"></span> <span class="text-muted">To
+                                                    <script>
+                                                        document.write((new Date()).getFullYear() + " ");
+                                                        document.write((new Date()).toLocaleString('default', {
+                                                            month: 'long'
+                                                        }));
+                                                    </script> period</span>
+                                            </div> <!-- end card-body-->
+                                        </div>
+                                        <!--end card-->
+                                    </div><!-- end col -->
+                                </div>
+                                <!-- end timeline -->
+
+
+
+
+                            </div> <!-- end tab-pane -->
+                            <!-- end about me section content -->
+
+                            <div class="tab-pane show active" id="timeline">
+
+                                <div class="card">
+                                    <div class="card-body">
+                                        <h4 class="header-title mb-3">LAB USAGE</h4>
+
+                                        <div class="table-responsive">
+                                            <table class="table table-hover table-centered mb-0">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Date</th>
+                                                        <th>Status</th>
+                                                        <th>Internet</th>
+                                                        <th>Time</th>
+                                                        <th>Registered By</th>
+                                                        <th>Net Cash</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    @foreach ($labUsage as $labUsage)
+                                                        <tr>
+                                                            <td>{{ $labUsage->created_at->format('d-M-Y') }}</td>
+                                                            <td>{{ $labUsage->status }}</td>
+                                                            @if ($labUsage->internet === 'Yes')
+
+                                                                <td><span
+                                                                        class="badge bg-success">{{ $labUsage->internet }}</span>
+                                                                </td>
+                                                            @else
+                                                                <td><span
+                                                                        class="badge bg-danger">{{ $labUsage->internet }}</span>
+                                                                </td>
+                                                            @endif
+
+                                                            <td>{{ $labUsage->time }}Minute</td>
+                                                            <td>{{ $labUsage->registeredby }}</td>
+                                                            <td>{{ $labUsage->netamount }}</td>
+                                                        </tr>
+                                                    @endforeach
+
+
+                                                </tbody>
+                                            </table>
+                                        </div> <!-- end table responsive-->
+                                    </div> <!-- end col-->
+                                </div> <!-- end row-->
+
+                            </div>
+                            <!-- end timeline content-->
+
+                            <div class="tab-pane" id="settings">
+                                {{-- <form>
                                 <h5 class="mb-4 text-uppercase"><i class="mdi mdi-account-circle me-1"></i> Personal Info</h5>
                                 <div class="row">
                                     <div class="col-md-6">
@@ -296,16 +336,16 @@
                                     <button type="submit" class="btn btn-success mt-2"><i class="mdi mdi-content-save"></i> Save</button>
                                 </div>
                             </form> --}}
-                        </div>
-                        <!-- end settings content-->
+                            </div>
+                            <!-- end settings content-->
 
-                    </div> <!-- end tab-content -->
-                </div> <!-- end card body -->
-            </div> <!-- end card -->
-        </div> <!-- end col -->
+                        </div> <!-- end tab-content -->
+                    </div> <!-- end card body -->
+                </div> <!-- end card -->
+            </div> <!-- end col -->
+        </div>
+        <!-- end row-->
+
     </div>
-    <!-- end row-->
 
-</div>
-
-    @endsection
+@endsection

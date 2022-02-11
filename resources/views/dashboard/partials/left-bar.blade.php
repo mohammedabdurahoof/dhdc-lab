@@ -113,7 +113,7 @@
             <li class="side-nav-item">
                 <a href="{{ route('print') }}" class="side-nav-link">
                     <i class="uil-comments-alt"></i>
-                    <span> Print </span>
+                    <span> Print & Net </span>
                 </a>
             </li>
             

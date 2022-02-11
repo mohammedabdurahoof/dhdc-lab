@@ -58,7 +58,7 @@ content --}}
             </th>
             <th class="all">NAME</th>
             <th>AD.NO</th>
-            <th>CLASS</th>
+            <th>SYSTEM</th>
             <th>TIME</th>
             <th>INTERNET ?</th>
             <th>PERMITTED BY</th>
@@ -94,7 +94,7 @@ content --}}
                 </td>
                 <td>
                   
-                    {{$list->id}}
+                    {{$list->system}}
                 </td>
                 <td>
                     {{$list->time}}
@@ -104,7 +104,7 @@ content --}}
                     {{$list->internet}}
                 </td>
                 <td>
-                    {{$list->leftedby}}
+                    {{$list->registeredby}}
                 </td>
                 <td>
                    

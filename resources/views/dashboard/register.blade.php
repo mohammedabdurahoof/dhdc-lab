@@ -65,8 +65,8 @@
                                         <th>CLASS</th>
                                         <th>TIME</th>
                                         <th>INTERNET ?</th>
-                                        <th>PERMITTED BY</th>
-                                        <th style="width: 85px;">VERIFY</th>
+                                        <th>SYSTEM</th>
+                                        <th style="width: 85px;">STATUS</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -107,7 +107,7 @@
                                                 {{ $list->internet }}
                                             </td>
                                             <td>
-                                                {{ $list->registeredby }}
+                                                {{ $list->system }}
                                             </td>
                                             <td>
                                                 @if ($list->status === 'REGISTERED')
@@ -196,11 +196,14 @@
                         <label for="example-number" class="form-label">Class</label>
                         <input class="form-control" value="" name="Class" id="Class" type="number" name="number">
                     </div> --}}
-
+                   
                         <div class="mb-3">
                             <label for="example-select" class="form-label">Time:</label>
                             <select class="form-select" name="time" id="class">
                                 <option value="" disabled>select</option>
+                                <option value="10">10mnt</option>
+                                <option value="15">15mnt</option>
+                                <option value="20">20mnt</option>
                                 <option value="30">30mnt</option>
                                 <option value="45">45mnt</option>
                                 <option value="60">1hr</option>
@@ -213,6 +216,27 @@
                                 <option value="" disabled>select</option>
                                 <option value="No">No</option>
                                 <option value="Yes">Yes</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label for="example-select" class="form-label">System?</label>
+                            <select class="form-select" name="system" id="class">
+                                <option value="">select</option>
+                                <option value="C1">C1</option>
+                                <option value="C2">C2</option>
+                                <option value="C3">C3</option>
+                                <option value="C4">C4</option>
+                                <option value="C5">C5</option>
+                                <option value="C6">C6</option>
+                                <option value="C7">C7</option>
+                                <option value="C8">C8</option>
+                                <option value="C9">C9</option>
+                                <option value="C10">C10</option>
+                                <option value="C11">C11</option>
+                                <option value="C12">C12</option>
+                                <option value="C13">C13</option>
+                                <option value="C14">C14</option>
+                                <option value="C15">C15</option>
                             </select>
                         </div>
                         {{-- <script>
