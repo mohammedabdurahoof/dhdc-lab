@@ -123,7 +123,7 @@ content --}}
                         @csrf
                         <input type="hidden" value="LEFT" name="status" id="">
                         <input type="hidden" value="{{ Auth::user()->name }}" name="leftedby">    
-                        <button type="submit" class="btn btn-danger">Left</button>
+                        <button type="submit" class="btn btn-danger">Leave</button>
                     </form>
                           
                       @endif

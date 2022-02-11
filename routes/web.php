@@ -35,11 +35,8 @@ Route::get('/all',[labController::class, 'all'])->name('all');
 Route::get('/getStudent/{adno}',[labController::class, 'getStudent'])->name('getStudent');
 Route::get('/viewStudent',[labController::class, 'viewStudent'])->name('viewStudent');
 Route::get('/print',[labController::class, 'print'])->name('print');
-Route::get('/netcash',[labController::class, 'netcash'])->name('netcash');
 Route::post('/addprintcash',[labController::class, 'addprintcash'])->name('addprintcash');
-// Route::post('/searchuser',[labController::class, 'searchuser'])->name('searchuser');
 Route::post('/searchuser',[labController::class, 'searchuser'])->name('searchuser');
-Route::post('/addNetcash',[labController::class, 'addNetcash'])->name('addNetcash');
 
 
 Route::post('export', [excelController::class, 'fileExport'])->name('export');

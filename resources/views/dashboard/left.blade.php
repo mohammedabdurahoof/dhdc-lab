@@ -108,7 +108,7 @@ content --}}
                 </td>
                 <td>
                    
-                    <span class="badge badge-danger-lighten">Lefted</span>
+                    <span class="badge badge-danger-lighten">Left</span>
 
               </td>
                 {{-- <td class="table-action">

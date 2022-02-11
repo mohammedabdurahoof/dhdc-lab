@@ -18,7 +18,7 @@ class CreateLabUsagesTable extends Migration
             $table->integer('adno');
             $table->string('time');
             $table->string('internet',124);
-            // $table->integer('netamount');
+            $table->integer('netamount');
             $table->string('status',124);
             $table->string('registeredby',124);
             $table->string('admittedby',124);

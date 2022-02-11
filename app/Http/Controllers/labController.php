@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 use App\Models\printcash;
+use Illuminate\Support\Arr;
 
 class labController extends Controller
 {
@@ -122,53 +123,45 @@ class labController extends Controller
         return back();
     }
 
-    // public function makeLeft(Request $request, labUsage $id)
-    // {
-     
-    //     $adno=$id;
-       
-    //     $admittime=$id->admittime;
-    //     $lefttime=$request->post('lefttime');
-
-    //     $net = \Carbon\Carbon::parse($admittime)->diff($lefttime)->format('%H');
-       
-    //     if($net>15){
-    //         $netamount=0;
-    //     }else{
-    //         $netamount=0;
-    //     }
-    //     if(!$netamount){
-    //         labUsage::create([
-    //             'netamount'=>$netamount,
-    //          ]);
-    //          $id->update([
-    //             'status'=>$request->post('status'),
-    //             'lefttime'=>$request->post('lefttime'),
-    //             'leftedby'=>$request->post('leftedby'),
-    //          ]);
-    //     }else
-        
-    //     $id->update([
-    //         'status'=>$request->post('status'),
-    //         'lefttime'=>$request->post('lefttime'),
-    //         'leftedby'=>$request->post('leftedby'),
-    //         'netamount'=>$netamount,
-    //      ]);
-    //     return back();
-    // }
-
-
 
     public function makeLeft(Request $request, labUsage $id)
     {
-        // dd($request->post('status'));
-        $data = labUsage::where('adno', $request->post('adno'));;
-        $validator = $request->validate([
-            'status' => 'required',
+        if ($id->internet === 'Yes') {
+            // dd('hi');
+            $validator = $request->validate([
+                'status' => 'required',
+                'lefttime' => 'required',
+                'leftedby' => 'required',
+    
+            ]);
 
-        ]);
-        //  dd($validator);
-        $id->update($validator);
+            $diff = \Carbon\Carbon::parse($id->admittime)->diff($request->post('lefttime'))->format('%H:%I');
+            
+            if ($diff <= '00:00') {
+                $netamount = 00;
+            }elseif ($diff <= '00:15') {
+                $netamount = 05;               
+            }elseif ($diff <= '00:30') {
+                $netamount = 10;
+            }elseif ($diff <= '00:45') {
+                $netamount = 15;
+            }elseif ($diff <= '01:00') {
+                $netamount = 20;
+            }elseif ($diff <= '02:00') {
+                $netamount = 40;
+            }
+            $validator = Arr::add($validator, 'netamount' , $netamount);
+            $id->update($validator);
+        }else {
+            $validator = $request->validate([
+                'status' => 'required',
+                'lefttime' => 'required',
+                'leftedby' => 'required',
+    
+            ]);
+            //  dd($validator);
+            $id->update($validator);
+        }
         return back();
     }
 
@@ -292,27 +285,6 @@ class labController extends Controller
             // dd($request->post('search'));
             // return back();
         
-    }
-
-    public function addNetcash(){
-        $labUsage=labUsage::all();
-        $listCount=labUsage::count();
-
-        // dd($labUsage);
-        // dd( $labUsage);
-       
-     $net = \Carbon\Carbon::parse($labUsage->admittime)->diff($labUsage->lefttime)->format('%H:%I');
-     dd($net);
-    
-       
-        
-    
-    return view('dashboard/net',['labusage' => $labUsage]);
-    }
-    public function netcash(){
-        $labUsage=labUsage::all();
-        $print="null";
-    return view('dashboard/net', ['labusage' => $labUsage]);
     }
 
    

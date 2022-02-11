@@ -123,10 +123,10 @@ content --}}
                 <input type="hidden" value="LEFT" name="status" id="">
                 <input type="hidden" value="{{ Auth::user()->name }}" name="leftedby">
                 <input type="hidden"  value="<?php echo date('Y-m-d\TH:i:s'); ?>" name="lefttime">    
-                <button type="submit" class="btn btn-danger">Left</button>
+                <button type="submit" class="btn btn-danger">Leave</button>
             </form>
                     @else
-                    <span class="badge badge-danger-lighten">Lefted</span>
+                    <span class="badge badge-danger-lighten">Left</span>
                 @endif
               
 
