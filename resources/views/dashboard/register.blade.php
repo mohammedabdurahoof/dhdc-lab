@@ -107,7 +107,7 @@
                                                 {{ $list->internet }}
                                             </td>
                                             <td>
-                                                USTHAD
+                                                {{ $list->registeredby }}
                                             </td>
                                             <td>
                                                 @if ($list->status === 'REGISTERED')

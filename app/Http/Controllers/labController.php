@@ -122,54 +122,53 @@ class labController extends Controller
         return back();
     }
 
+    // public function makeLeft(Request $request, labUsage $id)
+    // {
+     
+    //     $adno=$id;
+       
+    //     $admittime=$id->admittime;
+    //     $lefttime=$request->post('lefttime');
+
+    //     $net = \Carbon\Carbon::parse($admittime)->diff($lefttime)->format('%H');
+       
+    //     if($net>15){
+    //         $netamount=0;
+    //     }else{
+    //         $netamount=0;
+    //     }
+    //     if(!$netamount){
+    //         labUsage::create([
+    //             'netamount'=>$netamount,
+    //          ]);
+    //          $id->update([
+    //             'status'=>$request->post('status'),
+    //             'lefttime'=>$request->post('lefttime'),
+    //             'leftedby'=>$request->post('leftedby'),
+    //          ]);
+    //     }else
+        
+    //     $id->update([
+    //         'status'=>$request->post('status'),
+    //         'lefttime'=>$request->post('lefttime'),
+    //         'leftedby'=>$request->post('leftedby'),
+    //         'netamount'=>$netamount,
+    //      ]);
+    //     return back();
+    // }
+
+
+
     public function makeLeft(Request $request, labUsage $id)
     {
         // dd($request->post('status'));
-        $adno=$id;
-       
-        $admittime=$id->admittime;
-        $lefttime=$request->post('lefttime');
+        $data = labUsage::where('adno', $request->post('adno'));;
+        $validator = $request->validate([
+            'status' => 'required',
 
-        // dd($lefttime);
-        // $admittime=$request->post('admittime');
-        // $lefttime=$request->post('lefttime');
-        // $data = labUsage::where('adno', $request->post('adno'));;
-        $net = \Carbon\Carbon::parse($admittime)->diff($lefttime)->format('%H');
-        // dd($net);
-       
-        // dd($net);
-
-        // dd($net);
-        // $validator = $request->validate([
-        //     'status' => 'required',
-        //     'lefttime' => 'required',
-        //     'leftedby' => 'required',
-        //     'netamount' => 'required',
-        // ]);
+        ]);
         //  dd($validator);
-        if($net>15){
-            $netamount=0;
-        }else{
-            $netamount=0;
-        }
-        // dd($lefttime);
-        if(!$netamount){
-            labUsage::create([
-                'netamount'=>$netamount,
-             ]);
-             $id->update([
-                'status'=>$request->post('status'),
-                'lefttime'=>$request->post('lefttime'),
-                'leftedby'=>$request->post('leftedby'),
-             ]);
-        }else
-        
-        $id->update([
-            'status'=>$request->post('status'),
-            'lefttime'=>$request->post('lefttime'),
-            'leftedby'=>$request->post('leftedby'),
-            'netamount'=>$netamount,
-         ]);
+        $id->update($validator);
         return back();
     }
 
